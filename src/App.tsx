@@ -4,6 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Link from "@material-ui/core/Link";
 import ProTip from "./ProTip";
+import { Button } from "@material-ui/core";
+import { ThemeContext } from "./ThemeSwitcher";
 
 function Copyright() {
   return (
@@ -19,12 +21,20 @@ function Copyright() {
 }
 
 export default function App() {
+  const { setLightTheme } = React.useContext(ThemeContext);
+
+  const switchHandler = (newValue: boolean) => () => {
+    if (setLightTheme) setLightTheme(newValue);
+  };
+
   return (
     <Container maxWidth="sm">
       <Box my={4}>
         <Typography variant="h4" component="h1" gutterBottom>
           Create React App v3 example with TypeScript
         </Typography>
+        <Button onClick={switchHandler(true)}>Light</Button>
+        <Button onClick={switchHandler(false)}>Dark</Button>
         <ProTip />
         <Copyright />
       </Box>
