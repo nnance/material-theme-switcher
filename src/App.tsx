@@ -5,7 +5,8 @@ import Box from "@material-ui/core/Box";
 import Link from "@material-ui/core/Link";
 import ProTip from "./ProTip";
 import { Button } from "@material-ui/core";
-import { ThemeContext } from "./ThemeSwitcher";
+import { AppContext } from "./AppContext";
+import AuthButton from "./AuthButton";
 
 function Copyright() {
   return (
@@ -21,7 +22,7 @@ function Copyright() {
 }
 
 export default function App() {
-  const { setLightTheme } = React.useContext(ThemeContext);
+  const { setLightTheme } = React.useContext(AppContext);
 
   const switchHandler = (newValue: boolean) => () => {
     if (setLightTheme) setLightTheme(newValue);
@@ -31,10 +32,11 @@ export default function App() {
     <Container maxWidth="sm">
       <Box my={4}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Create React App v3 example with TypeScript
+          Create React App example with TypeScript
         </Typography>
         <Button onClick={switchHandler(true)}>Light</Button>
         <Button onClick={switchHandler(false)}>Dark</Button>
+        <AuthButton />
         <ProTip />
         <Copyright />
       </Box>
