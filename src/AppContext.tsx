@@ -1,4 +1,5 @@
 import React from "react";
+import { merge } from "lodash/fp";
 
 type AppProps = {
   isLightTheme: boolean;
@@ -10,10 +11,6 @@ const initialProps = (): AppProps => ({
   isAuthenticated: false
 });
 
-const copyProps = (newVal: Partial<AppProps>) => (current: AppProps) => {
-  return { ...current, ...newVal };
-};
-
 export const AppContext = React.createContext({
   props: initialProps(),
   setLightTheme: (val: boolean) => {},
@@ -24,10 +21,10 @@ export const useAppContext = () => {
   const [props, setProps] = React.useState(initialProps());
 
   const setLightTheme = (val: boolean) =>
-    setProps(copyProps({ isLightTheme: val }));
+    setProps(cur => merge(cur, { isLightTheme: val }));
 
   const setAuthenticated = (val: boolean) =>
-    setProps(copyProps({ isAuthenticated: val }));
+    setProps(cur => merge(cur, { isAuthenticated: val }));
 
   return {
     props,
